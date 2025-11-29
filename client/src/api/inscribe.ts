@@ -2,11 +2,14 @@
 // Handles file, text, and DRC-20 inscriptions via Tatum
 
 import { broadcastTransaction, listUtxos, getBalance } from './tatum';
-import * as Doge from 'doge-sdk';
-import { assembleBitcoinScript } from 'doge-sdk/script';
-import { SIGHASH_ALL } from 'doge-sdk/transaction/constants';
-import { TransactionBuilder } from 'doge-sdk/transaction/builder';
-import { addressToOutputScript } from 'doge-sdk/address';
+import {
+  DogeMemoryWallet,
+  assembleBitcoinScript,
+  SIGHASH_ALL,
+  TransactionBuilder,
+  addressToOutputScript,
+  u8ArrayToHex
+} from 'doge-sdk';
 
 export async function inscribeFile(files: File[], address: string, apiKey: string, feeRate?: number) {
   const utxos = await listUtxos({ address, apiKey });
@@ -20,7 +23,7 @@ export async function inscribeFile(files: File[], address: string, apiKey: strin
     }
     const outputs = chunks.map(chunk => ({
       value: 0,
-      script: assembleBitcoinScript(`OP_RETURN ${Doge.u8ArrayToHex(chunk)}`)
+      script: assembleBitcoinScript(`OP_RETURN ${u8ArrayToHex(chunk)}`)
     }));
     const totalInput = utxos.reduce((sum, u) => sum + u.value, 0);
     const fee = 1 * 1e5;
@@ -35,7 +38,7 @@ export async function inscribeFile(files: File[], address: string, apiKey: strin
       index: u.vout,
       value: u.value,
       lockScript: addressToOutputScript(address),
-      signers: [Doge.DogeMemoryWallet.fromWIF(window.localStorage.getItem('dogeWif'), 'doge')],
+      signers: [DogeMemoryWallet.fromWIF(window.localStorage.getItem('dogeWif'), 'doge')],
       sigHashType: SIGHASH_ALL
     }));
     const builder = new TransactionBuilder(inputs, outputs);
@@ -57,7 +60,7 @@ export async function inscribeText(text: string, address: string, apiKey: string
   }
   const outputs = chunks.map(chunk => ({
     value: 0,
-    script: assembleBitcoinScript(`OP_RETURN ${Doge.u8ArrayToHex(chunk)}`)
+    script: assembleBitcoinScript(`OP_RETURN ${u8ArrayToHex(chunk)}`)
   }));
   const totalInput = utxos.reduce((sum, u) => sum + u.value, 0);
   const fee = 1 * 1e5;
@@ -72,7 +75,7 @@ export async function inscribeText(text: string, address: string, apiKey: string
     index: u.vout,
     value: u.value,
     lockScript: addressToOutputScript(address),
-    signers: [Doge.DogeMemoryWallet.fromWIF(window.localStorage.getItem('dogeWif'), 'doge')],
+    signers: [DogeMemoryWallet.fromWIF(window.localStorage.getItem('dogeWif'), 'doge')],
     sigHashType: SIGHASH_ALL
   }));
   const builder = new TransactionBuilder(inputs, outputs);
@@ -93,7 +96,7 @@ export async function drc20Deploy(tick: string, supply: string, mintLimit: strin
   }
   const outputs = chunks.map(chunk => ({
     value: 0,
-    script: assembleBitcoinScript(`OP_RETURN ${Doge.u8ArrayToHex(chunk)}`)
+    script: assembleBitcoinScript(`OP_RETURN ${u8ArrayToHex(chunk)}`)
   }));
   const totalInput = utxos.reduce((sum, u) => sum + u.value, 0);
   const fee = 1 * 1e5;
@@ -108,7 +111,7 @@ export async function drc20Deploy(tick: string, supply: string, mintLimit: strin
     index: u.vout,
     value: u.value,
     lockScript: addressToOutputScript(address),
-    signers: [Doge.DogeMemoryWallet.fromWIF(window.localStorage.getItem('dogeWif'), 'doge')],
+    signers: [DogeMemoryWallet.fromWIF(window.localStorage.getItem('dogeWif'), 'doge')],
     sigHashType: SIGHASH_ALL
   }));
   const builder = new TransactionBuilder(inputs, outputs);
@@ -132,7 +135,7 @@ export async function drc20Mint(tick: string, amount: string, repeat: number | u
     }
     const outputs = chunks.map(chunk => ({
       value: 0,
-      script: assembleBitcoinScript(`OP_RETURN ${Doge.u8ArrayToHex(chunk)}`)
+      script: assembleBitcoinScript(`OP_RETURN ${u8ArrayToHex(chunk)}`)
     }));
     const totalInput = utxos.reduce((sum, u) => sum + u.value, 0);
     const fee = 1 * 1e5;
@@ -147,7 +150,7 @@ export async function drc20Mint(tick: string, amount: string, repeat: number | u
       index: u.vout,
       value: u.value,
       lockScript: addressToOutputScript(address),
-      signers: [Doge.DogeMemoryWallet.fromWIF(window.localStorage.getItem('dogeWif'), 'doge')],
+      signers: [DogeMemoryWallet.fromWIF(window.localStorage.getItem('dogeWif'), 'doge')],
       sigHashType: SIGHASH_ALL
     }));
     const builder = new TransactionBuilder(inputs, outputs);
@@ -173,7 +176,7 @@ export async function drc20Transfer(tick: string, amount: string, repeat: number
     }
     const outputs = chunks.map(chunk => ({
       value: 0,
-      script: assembleBitcoinScript(`OP_RETURN ${Doge.u8ArrayToHex(chunk)}`)
+      script: assembleBitcoinScript(`OP_RETURN ${u8ArrayToHex(chunk)}`)
     }));
     const totalInput = utxos.reduce((sum, u) => sum + u.value, 0);
     const fee = 1 * 1e5;
@@ -188,7 +191,7 @@ export async function drc20Transfer(tick: string, amount: string, repeat: number
       index: u.vout,
       value: u.value,
       lockScript: addressToOutputScript(address),
-      signers: [Doge.DogeMemoryWallet.fromWIF(window.localStorage.getItem('dogeWif'), 'doge')],
+      signers: [DogeMemoryWallet.fromWIF(window.localStorage.getItem('dogeWif'), 'doge')],
       sigHashType: SIGHASH_ALL
     }));
     const builder = new TransactionBuilder(inputs, outputs);

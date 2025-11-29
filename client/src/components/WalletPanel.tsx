@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Toast from './Toast';
-import { getNewAddress, getBalance } from '../../../src/wallet/wallet';
+import { generateAddress, getBalance } from '../../../src/wallet/wallet';
 
 export default function WalletPanel() {
   const [address, setAddress] = useState('');
@@ -19,7 +19,7 @@ export default function WalletPanel() {
         setShowToast(true);
         // Continue to generate wallet with empty API key (Tatum default)
       }
-      const addr = await getNewAddress(apiKey);
+      const addr = await generateAddress(apiKey);
       setAddress(addr);
       setBalance(null);
       setToastMsg('Wallet generated!');

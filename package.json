@@ -1,0 +1,28 @@
+{
+  "name": "dogemint",
+  "version": "0.1.0",
+  "description": "Frontend library for minting Doginals and Dogecoin wallet operations.",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "keywords": [
+    "dogecoin",
+    "ordinals",
+    "doginals",
+    "minting",
+    "wallet",
+    "web3"
+  ],
+  "author": "Dogemint Contributors",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "doge-sdk": "^0.5.0-beta.5"
+  }
+}

@@ -1,0 +1,72 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vite/React
+client/dist/
+client/.vite/
+
+# Build
+/dist/
+/build/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Misc
+*.swp
+*.swo
+
+# Python (if any)
+__pycache__/
+*.pyc
+
+# Rust (if any)
+target/
+Cargo.lock
+
+# Dogecoin Core
+*.dat
+*.pid
+*.conf
+
+# Ord-dogecoin
+ref/ord-dogecoin/target/
+ref/ord-dogecoin/.cargo/
+ref/ord-dogecoin/.vagrant/
+ref/ord-dogecoin/.DS_Store
+ref/ord-dogecoin/*.log
+ref/ord-dogecoin/*.sqlite
+ref/ord-dogecoin/*.db
+ref/ord-dogecoin/*.pid
+
+# Doge-sdk
+ref/doge-sdk/node_modules/
+ref/doge-sdk/dist/
+ref/doge-sdk/.DS_Store
+ref/doge-sdk/*.log
+
+# Batch uploads
+uploads/
+
+# Coverage
+coverage/
+
+# Others
+*.bak
+*.tmp
